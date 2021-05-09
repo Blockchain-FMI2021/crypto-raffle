@@ -5,8 +5,8 @@ contract('MaiaToken', accounts => {
     const _name = 'MaiaToken';
     const _symbol = 'Maia'
     const _decimals = 18;
-    const _initialSupply = web3.utils.toBN('1000000000');
-    console.log(_initialSupply);
+    const _initialSupply = web3.utils.toBN('1000000000000000000000000000');
+
     beforeEach(async function () {
         this.token = await MaiaToken.new(_name, _symbol, _decimals);
     });
@@ -31,7 +31,6 @@ contract('MaiaToken', accounts => {
     describe('token metrics', function () {
         it('has the right amount of tokens', async function () {
             const balance = await this.token.balanceOf(accounts[0]);
-            console.log(balance);
             assert.deepEqual(balance, _initialSupply, "Initial supply of the token is not correct!");
         })
     })
