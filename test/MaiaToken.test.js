@@ -5,7 +5,7 @@ contract('MaiaToken', accounts => {
     const _name = 'MaiaToken';
     const _symbol = 'Maia'
     const _decimals = 18;
-    const _initialSupply = web3.utils.toBN('1000000000000000000000000000');
+    const _initialSupply ='1000000000000000000000000000';
 
     beforeEach(async function () {
         this.token = await MaiaToken.new(_name, _symbol, _decimals);
@@ -31,7 +31,27 @@ contract('MaiaToken', accounts => {
     describe('token metrics', function () {
         it('has the right amount of tokens', async function () {
             const balance = await this.token.balanceOf(accounts[0]);
-            assert.deepEqual(balance, _initialSupply, "Initial supply of the token is not correct!");
+            assert.equal(balance.eq(web3.utils.toBN(_initialSupply)), true, "Initial supply of the token is not correct!");
+        })
+    })
+
+    describe('transactions correctness', function () {
+        it('transfer 10 MaiaToken', async function() {
+            const beforeBalanceSender = await this.token.balanceOf(accounts[0]);
+            const beforeBalanceReceiver = await this.token.balanceOf(accounts[1]);
+            await this.token.transfer(accounts[1], 10);
+            const afterBalanceSender = await this.token.balanceOf(accounts[0]);
+            const afterBalanceReceiver = await this.token.balanceOf(accounts[1]);
+
+            assert.equal(beforeBalanceSender.sub(afterBalanceSender).eq(web3.utils.toBN('10')), true, "Sender has the wrong number of tokens!");
+            assert.equal(afterBalanceReceiver.sub(beforeBalanceReceiver).eq(web3.utils.toBN('10')), true, "Receiver has the wrong number of tokens!");
+        })
+
+        it('mints new 10 MaiaToken', async function() {
+            await this.token.mint(accounts[0], 10);
+            const balance = await this.token.balanceOf(accounts[0]);
+            const newSupply = '1000000000000000000000000010';
+            assert.equal(balance.eq(web3.utils.toBN(newSupply)), true, "Total supply of the token is not correct!");
         })
     })
 })
