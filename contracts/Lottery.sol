@@ -137,17 +137,17 @@ contract Lottery {
         if (numberOfWinners == 0) {
             accumulatedPrize = accumulatedPrize + basePrize;
         } else {
-            // uint256 amountWinByEveryParticipant =
-            //     div(accumulatedPrize, numberOfWinners);
-            // for (uint8 i = 0; i < numberOfWinners; i++) {
-            //     lotteryEntries[extractionNo][winningHash][i].transfer(
-            //         amountWinByEveryParticipant
-            //     );
-            // }
-            // emit Winners(
-            //     lotteryEntries[extractionNo][winningHash],
-            //     amountWinByEveryParticipant
-            // );
+            uint256 amountWinByEveryParticipant =
+                SafeMath.div(accumulatedPrize, numberOfWinners);
+            for (uint8 i = 0; i < numberOfWinners; i++) {
+                lotteryEntries[extractionNo][winningHash][i].transfer(
+                    amountWinByEveryParticipant
+                );
+            }
+            emit Winners(
+                lotteryEntries[extractionNo][winningHash],
+                amountWinByEveryParticipant
+            );
         }
     }
 
@@ -160,5 +160,5 @@ contract Lottery {
         return players;
     }
 
-    event Winners(address[] indexed, uint256);
+    event Winners(address payable[] indexed, uint256);
 }
