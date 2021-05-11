@@ -4,8 +4,8 @@ contract('MaiaToken', accounts => {
 
     const _name = 'MaiaToken';
     const _symbol = 'Maia'
-    const _decimals = 18;
-    const _initialSupply ='1000000000000000000000000000';
+    const _decimals = 1;
+    const _initialSupply ='10000000000';
 
     beforeEach(async function () {
         this.token = await MaiaToken.new(_name, _symbol, _decimals);
@@ -36,7 +36,7 @@ contract('MaiaToken', accounts => {
     })
 
     describe('transactions correctness', function () {
-        it('transfer 10 MaiaToken', async function() {
+        it('transfer 1 MaiaToken', async function() {
             const beforeBalanceSender = await this.token.balanceOf(accounts[0]);
             const beforeBalanceReceiver = await this.token.balanceOf(accounts[1]);
             await this.token.transfer(accounts[1], 10);
@@ -47,7 +47,7 @@ contract('MaiaToken', accounts => {
             assert.equal(afterBalanceReceiver.sub(beforeBalanceReceiver).eq(web3.utils.toBN('10')), true, "Receiver has the wrong number of tokens!");
         })
 
-        it('mints new 10 MaiaToken', async function() {
+        it('mints new 1 MaiaToken', async function() {
             await this.token.mint(accounts[0], 10);
             const balance = await this.token.balanceOf(accounts[0]);
             const newSupply = '1000000000000000000000000010';
