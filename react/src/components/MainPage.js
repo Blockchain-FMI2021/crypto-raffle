@@ -5,7 +5,7 @@ import ticket from '../imgs/ticket.png';
 import ethereum from '../imgs/ethereum.png';
 var tickets=50;
 var cashmoney=3500;
-const MainPage = () => {
+function MainPage()  {
  
   return (
     <div className={styles.container}> 
