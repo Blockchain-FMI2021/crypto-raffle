@@ -47,14 +47,14 @@ function Login  ()  {
               <br/>
               <div>
               <Link to="/MainPage">
-              <button type="button">
+              <button type="button" className={styles.loginbutton}>
                 Go to main page
               </button>
               </Link>
               
               </div>
               <br/>
-              <button type="button">
+              <button className={styles.loginbutton}>
                 Register
               </button>
               
