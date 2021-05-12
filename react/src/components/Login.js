@@ -16,7 +16,7 @@ import {
 
 
 
-const Login = () => {
+function Login  ()  {
   return (
     <div className={styles.container}> 
       <Container >
