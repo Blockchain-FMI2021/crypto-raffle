@@ -48,7 +48,7 @@ function Login  ()  {
               <div>
               <Link to="/MainPage">
               <button type="button">
-                Login
+                Go to main page
               </button>
               </Link>
               
