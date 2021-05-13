@@ -24,7 +24,7 @@ const App = () => {
 
           if (!initialized) {
             return (
-              <div class='d-flex justify-content-center align-items-center' style={{ height: '100%', width: '100%', border: '1px solid red' }}>
+              <div className='d-flex justify-content-center align-items-center' style={{ height: '100%', width: '100%' }}>
                 <Loader
                   type='Puff'
                   color='#00BFFF'
@@ -36,7 +36,7 @@ const App = () => {
             );
           }
 
-          return <MainPage />;
+          return <MainPage drizzle={drizzle} drizzleState={drizzleState} />;
 
           // return (
           //   <Router>
