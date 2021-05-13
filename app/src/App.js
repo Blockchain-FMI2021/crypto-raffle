@@ -3,10 +3,11 @@ import { DrizzleContext } from "@drizzle/react-plugin";
 import { Drizzle } from "@drizzle/store";
 import drizzleOptions from "./drizzleOptions";
 import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
-import Login from './components/Login';
 import MainPage from './components/MainPage';
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import * as serviceWorker from './serviceWorker';
+
 
 const drizzle = new Drizzle(drizzleOptions);
 
@@ -21,14 +22,11 @@ const App = () => {
             return "Loading..."
           }
 
-          console.log(drizzle, drizzleState);
-
           return (
             <Router>
               <div>
                 <Switch>
-                  <Route exact path="/" component={Login}></Route>
-                  <Route exact path="/MainPage" component={MainPage}></Route>
+                  <Route exact path="/" component={() => <MainPage drizzle={drizzle} drizzleState={drizzleState}/>}></Route>
                 </Switch>
               </div>
             </Router>
