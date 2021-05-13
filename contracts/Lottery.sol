@@ -1,27 +1,79 @@
 pragma solidity ^0.5.0;
-import "@openzeppelin/contracts/math/SafeMath.sol";
+
+// import "@openzeppelin/contracts/math/SafeMath.sol";
 
 contract Lottery {
-    using SafeMath for uint256;
+    // using SafeMath for uint256;
 
     address public manager;
-    address payable[] public players;
+    mapping(uint256 => address[]) players;
     mapping(uint256 => mapping(bytes32 => address payable[])) lotteryEntries;
-    uint256 private extractionNo;
+    uint256 public extractionNo;
     uint8 private nrOfNumbers;
-    uint256 private basePrize;
-    uint256 private accumulatedPrize;
+    uint8 private limit;
+
+    // uint256 public accumulatedPrize;
+
+    function test_getKacAbiEncode(string memory input)
+        public
+        pure
+        returns (bytes32)
+    {
+        return keccak256(abi.encodePacked(input));
+    }
+
+    function test_getWinnerHash() public view returns (bytes32) {
+        uint8[] memory numbers = new uint8[](nrOfNumbers);
+        for (uint8 index = 0; index < 6; index++) {
+            numbers[index] = index + 1;
+        }
+        string memory numbersConcatenated;
+        for (uint8 i = 0; i < nrOfNumbers; i++) {
+            numbersConcatenated = appendUintToString(
+                numbersConcatenated,
+                numbers[i]
+            );
+        }
+        bytes32 winningHash = keccak256(abi.encodePacked(numbersConcatenated));
+        return winningHash;
+    }
+
+    function test_getAmountWinnedByEveryPlayer() public view returns (uint256) {
+        bytes32 winningHash =
+            0xc888c9ce9e098d5864d3ded6ebcc140a12142263bace3a23a36f9905f12bd64a;
+        uint256 numberOfWinners =
+            lotteryEntries[extractionNo][winningHash].length;
+
+        // uint256 amountWinByEveryParticipant =
+        // SafeMath.div(accumulatedPrize, numberOfWinners);
+        if (numberOfWinners == 0) return 1;
+
+        uint256 amountWinByEveryParticipant = getBalance() / numberOfWinners;
+
+        return amountWinByEveryParticipant;
+    }
+
+    function getLotteryEntries()
+        public
+        view
+        returns (address payable[] memory)
+    {
+        bytes32 x =
+            0xc888c9ce9e098d5864d3ded6ebcc140a12142263bace3a23a36f9905f12bd64a;
+        return lotteryEntries[extractionNo][x];
+    }
 
     constructor() public {
         manager = msg.sender;
-        extractionNo = 1;
+        extractionNo = 0;
         nrOfNumbers = 6;
-        basePrize = 1000;
-        accumulatedPrize = 1000;
+        limit = 49;
+        // accumulatedPrize = 0;
     }
 
     function enter(bytes32 entryHash) public payable {
         require(msg.value >= 0.01 ether);
+        players[extractionNo].push(msg.sender);
         lotteryEntries[extractionNo][entryHash].push(msg.sender);
     }
 
@@ -55,20 +107,7 @@ contract Lottery {
         if (i < right) quickSort(arr, i, right);
     }
 
-    function conversion(uint8[] memory array8)
-        public
-        pure
-        returns (uint256[] memory array256)
-    {
-        for (uint256 i = 0; i < array8.length; i++) {
-            array256[i] = array8[i];
-        }
-
-        return array256;
-    }
-
-    function getWinnerNumbers() public view returns (uint8[] memory) {
-        uint8 limit = 49;
+    function getWinnerNumbers() private view returns (uint8[] memory) {
         bool[] memory alreadyPicked = new bool[](50);
         for (uint8 i = 0; i < limit; i++) {
             alreadyPicked[i] = false;
@@ -122,7 +161,13 @@ contract Lottery {
     }
 
     function pickWinner() public restricted {
-        uint8[] memory numbers = getWinnerNumbers();
+        // for testing purposes
+        uint8[] memory numbers = new uint8[](nrOfNumbers);
+        for (uint8 index = 0; index < 6; index++) {
+            numbers[index] = index + 1;
+        }
+
+        // uint8[] memory numbers = getWinnerNumbers();
         string memory numbersConcatenated;
         for (uint8 i = 0; i < nrOfNumbers; i++) {
             numbersConcatenated = appendUintToString(
@@ -130,15 +175,14 @@ contract Lottery {
                 numbers[i]
             );
         }
-        bytes32 winningHash =
-            keccak256(abi.encodePacked(block.difficulty, now, players));
+        bytes32 winningHash = keccak256(abi.encodePacked(numbersConcatenated));
         uint256 numberOfWinners =
             lotteryEntries[extractionNo][winningHash].length;
-        if (numberOfWinners == 0) {
-            accumulatedPrize = accumulatedPrize + basePrize;
-        } else {
+        if (numberOfWinners > 0) {
+            // uint256 amountWinByEveryParticipant =
+            // SafeMath.div(accumulatedPrize, numberOfWinners);
             uint256 amountWinByEveryParticipant =
-                SafeMath.div(accumulatedPrize, numberOfWinners);
+                getBalance() / numberOfWinners;
             for (uint8 i = 0; i < numberOfWinners; i++) {
                 lotteryEntries[extractionNo][winningHash][i].transfer(
                     amountWinByEveryParticipant
@@ -149,6 +193,7 @@ contract Lottery {
                 amountWinByEveryParticipant
             );
         }
+        extractionNo += 1;
     }
 
     modifier restricted() {
@@ -156,8 +201,12 @@ contract Lottery {
         _;
     }
 
-    function getPlayers() public view returns (address payable[] memory) {
-        return players;
+    function getPlayers() public view returns (address[] memory) {
+        return players[extractionNo];
+    }
+
+    function getBalance() public view restricted returns (uint256) {
+        return address(this).balance;
     }
 
     event Winners(address payable[] indexed, uint256);
