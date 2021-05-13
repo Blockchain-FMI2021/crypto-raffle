@@ -4,6 +4,8 @@ import GetMaiaTokens from "./components/drizzle-custom/MaiaToken/GetMaiaTokens";
 import EnterLottery from "./components/drizzle-custom/Lottery/EnterLottery";
 import GetPlayers from "./components/drizzle-custom/Lottery/GetPlayers";
 
+import MainPage from './components/visualComponents/MainPage'
+
 
 class App extends React.Component {
   state = { loading: true, drizzleState: null };
@@ -27,6 +29,7 @@ class App extends React.Component {
     if (this.state.loading) return "Loading Drizzle...";
     return (
       <div className="App">
+        <MainPage />
         <GetMaiaTokens
           drizzle={this.props.drizzle}
           drizzleState={this.state.drizzleState}
