@@ -5,13 +5,10 @@ import ticket from '../imgs/ticket.png';
 import ethereum from '../imgs/ethereum.png';
 import {
   Button,
-  FormGroup,
-  Input,
   Container,
   ButtonGroup,
   Row,
   Col,
-  Form,
 } from "reactstrap";
 
 
@@ -19,9 +16,8 @@ var tickets=50;
 var cashmoney=3500;
 const colStyle = { "marginBottom":"5px"};
 
-function MainPage()  {
+function MainPage(props)  {
   const [cSelected, setCSelected] = useState([]);
-
 
   const onCheckboxBtnClick = (selected) => {
     const index = cSelected.indexOf(selected);
@@ -37,18 +33,18 @@ function MainPage()  {
           <div className={styles.maintab}> 
             <div className={styles.playerlist}> 
               <p>Active players:</p>
-                <img src={user}/><p className={styles.playerlist}>Bot 1</p><br/>
-                <img src={user}/><p className={styles.playerlist}>Bot 2</p><br/>
-                <img src={user}/><p className={styles.playerlist}>Bot 3</p><br/>
-                <img src={user}/><p className={styles.playerlist}>Bot 4</p><br/>
-                <img src={user}/><p className={styles.playerlist}>Bot 5</p><br/>
+                <img alt=""src={user}/><p className={styles.playerlist}>Bot 1</p><br/>
+                <img alt=""src={user}/><p className={styles.playerlist}>Bot 2</p><br/>
+                <img alt=""src={user}/><p className={styles.playerlist}>Bot 3</p><br/>
+                <img alt=""src={user}/><p className={styles.playerlist}>Bot 4</p><br/>
+                <img alt=""src={user}/><p className={styles.playerlist}>Bot 5</p><br/>
               </div>
               //pot din dreapta sus 
               <div className={styles.pot}> 
                 <p style={{"marginLeft" : "25%"}}> Your pot:</p>
                 <p className={styles.totalpot}>  {tickets} </p> 
-                <img className={styles.ticketimg} src={ticket}/>
-                <p className={styles.money} >{cashmoney} <img className={styles.ticketimg} src={ethereum}/></p>
+                <img alt=""className={styles.ticketimg} src={ticket}/>
+                <p className={styles.money} >{cashmoney} <img alt=""className={styles.ticketimg} src={ethereum}/></p>
                 <button className={styles.buyinbutton} >Buy in</button>
                 <br/>
                 <button className={styles.cashoutbutton}>Cash out</button>
@@ -134,10 +130,10 @@ function MainPage()  {
               
               <div className={styles.betbuttons}>
                 <div >
-                  <button className={styles.betbutton1}> WIN 2X <img src={ticket}></img> </button>
+                  <button className={styles.betbutton1}> WIN 2X <img alt=""src={ticket}></img> </button>
                 </div>
                 <div >
-                  <button className={styles.betbutton2} >WIN 5X <img src={ticket}/></button>
+                  <button className={styles.betbutton2} >WIN 5X <img alt=""alt=""src={ticket}/></button>
                 </div>
               </div>  
           </div>
