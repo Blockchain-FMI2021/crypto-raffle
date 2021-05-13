@@ -72,6 +72,22 @@ contract Lottery {
         require(msg.value >= 0.01 ether);
         players[extractionNo].push(msg.sender);
         lotteryEntries[extractionNo][entryHash].push(msg.sender);
+        emit NewEntry(
+             players[extractionNo].length
+        );
+    }
+
+    function approveLottery(address maiaTokenAddress) public payable{
+        MaiaToken maiaTokenContract = MaiaToken(maiaTokenAddress);
+        maiaTokenContract.approve(manager, 100);
+    }
+
+    function enterLottery(bytes32 entryHash, address maiaTokenAddress) public payable{
+        MaiaToken maiaTokenContract = MaiaToken(maiaTokenAddress);
+        uint256 balanceOfMaiaTokens = maiaTokenContract.balanceOf(msg.sender);
+        require(balanceOfMaiaTokens >= 100);
+        players[extractionNo].push(msg.sender);
+        lotteryEntries[extractionNo][entryHash].push(msg.sender);
     }
 
     function random(uint256 seed) private view returns (uint256) {
@@ -202,9 +218,29 @@ contract Lottery {
         return players[extractionNo];
     }
 
+    function getPlayersNumber() public view returns (uint256) {
+        return players[extractionNo].length;
+    }
+
     function getBalance() public view restricted returns (uint256) {
         return address(this).balance;
     }
 
     event Winners(address payable[] indexed, uint256);
+
+    event NewEntry(uint256);
+}
+
+
+contract MaiaToken{
+
+    function balanceOf(address account) external view returns (uint256);
+
+//    function transfer(address recipient, uint256 amount) external returns (bool);
+
+//    function allowance(address owner, address spender) external view returns (uint256);
+
+    function approve(address spender, uint256 amount) external returns (bool);
+
+//    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
 }
