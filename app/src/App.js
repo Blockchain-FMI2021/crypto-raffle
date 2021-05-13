@@ -21,6 +21,8 @@ const App = () => {
             return "Loading..."
           }
 
+          console.log(drizzle, drizzleState);
+
           return (
             <Router>
               <div>
