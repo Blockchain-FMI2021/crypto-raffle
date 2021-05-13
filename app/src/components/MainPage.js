@@ -10,7 +10,11 @@ import {
   Container,
   ButtonGroup,
   Row,
+<<<<<<< HEAD
   Col
+=======
+  Col,
+>>>>>>> 2926c7f80e176530aa7ecbfccd7b9795dca3fc46
 } from "reactstrap";
 
 
@@ -18,7 +22,11 @@ var tickets = 50;
 var cashmoney = 3500;
 const colStyle = { "marginBottom": "5px" };
 
+<<<<<<< HEAD
 function MainPage(props) {
+=======
+function MainPage(props)  {
+>>>>>>> 2926c7f80e176530aa7ecbfccd7b9795dca3fc46
   const [cSelected, setCSelected] = useState([]);
   const { drizzle, drizzleState } = props;
   const LotteryContract = drizzle.contracts.Lottery;
@@ -28,6 +36,7 @@ function MainPage(props) {
   const [maiaTokenState, setMaiaTokenState] = useState(null);
   const [lotteryTokenState, setLotteryTokenState] = useState(null);
 
+<<<<<<< HEAD
   const buyIn = () => {
     console.log('Enter buy in', lotteryTokenState);
     const stackId = LotteryContract.methods.enter.cacheSend(drizzle.web3.utils.asciiToHex("16324546474849"), { from: drizzleState.accounts[0], value: drizzle.web3.utils.toWei('0.01', 'ether'), gas: drizzle.web3.utils.toBN("1000000") });
@@ -48,6 +57,8 @@ function MainPage(props) {
     setMaiaTokenState({ ...maiaTokenState, 'balanceDataKey': balanceDataKey });
   }
 
+=======
+>>>>>>> 2926c7f80e176530aa7ecbfccd7b9795dca3fc46
   const onCheckboxBtnClick = (selected) => {
     const index = cSelected.indexOf(selected);
     if (index < 0) {
@@ -58,6 +69,7 @@ function MainPage(props) {
     setCSelected([...cSelected]);
   }
   return (
+<<<<<<< HEAD
     <div className={styles.container}>
       <ContractData
         contract="Lottery"
@@ -85,6 +97,28 @@ function MainPage(props) {
           <br />
           <button className={styles.cashoutbutton}>Cash out</button>
         </div>
+=======
+    <div className={styles.container}> 
+          <div className={styles.maintab}> 
+            <div className={styles.playerlist}> 
+              <p>Active players:</p>
+                <img alt=""src={user}/><p className={styles.playerlist}>Bot 1</p><br/>
+                <img alt=""src={user}/><p className={styles.playerlist}>Bot 2</p><br/>
+                <img alt=""src={user}/><p className={styles.playerlist}>Bot 3</p><br/>
+                <img alt=""src={user}/><p className={styles.playerlist}>Bot 4</p><br/>
+                <img alt=""src={user}/><p className={styles.playerlist}>Bot 5</p><br/>
+              </div>
+              //pot din dreapta sus 
+              <div className={styles.pot}> 
+                <p style={{"marginLeft" : "25%"}}> Your pot:</p>
+                <p className={styles.totalpot}>  {tickets} </p> 
+                <img alt=""className={styles.ticketimg} src={ticket}/>
+                <p className={styles.money} >{cashmoney} <img alt=""className={styles.ticketimg} src={ethereum}/></p>
+                <button className={styles.buyinbutton} >Buy in</button>
+                <br/>
+                <button className={styles.cashoutbutton}>Cash out</button>
+              </div>
+>>>>>>> 2926c7f80e176530aa7ecbfccd7b9795dca3fc46
 
 
         <div className={styles.gridcss}>
@@ -161,6 +195,7 @@ function MainPage(props) {
             </Row>
           </Container>
 
+<<<<<<< HEAD
         </div>
         <p>Selected: {JSON.stringify(cSelected)}</p>
 
@@ -170,6 +205,19 @@ function MainPage(props) {
           </div>
           <div >
             <button className={styles.betbutton2} >WIN 5X <img src={ticket} /></button>
+=======
+              </div>
+              <p>Selected: {JSON.stringify(cSelected)}</p>
+              
+              <div className={styles.betbuttons}>
+                <div >
+                  <button className={styles.betbutton1}> WIN 2X <img alt=""src={ticket}></img> </button>
+                </div>
+                <div >
+                  <button className={styles.betbutton2} >WIN 5X <img alt=""alt=""src={ticket}/></button>
+                </div>
+              </div>  
+>>>>>>> 2926c7f80e176530aa7ecbfccd7b9795dca3fc46
           </div>
         </div>
       </div>

@@ -12,8 +12,6 @@ contract Lottery {
     uint8 private nrOfNumbers;
     uint8 private limit;
 
-    // uint256 public accumulatedPrize;
-
     function test_getKacAbiEncode(string memory input)
         public
         pure
@@ -68,7 +66,6 @@ contract Lottery {
         extractionNo = 0;
         nrOfNumbers = 6;
         limit = 49;
-        // accumulatedPrize = 0;
     }
 
     function enter(bytes32 entryHash) public payable {
