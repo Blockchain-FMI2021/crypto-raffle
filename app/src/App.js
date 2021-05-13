@@ -1,14 +1,15 @@
-import React from "react";
-import { DrizzleContext } from "@drizzle/react-plugin";
-import { Drizzle } from "@drizzle/store";
-import drizzleOptions from "./drizzleOptions";
+import React from 'react';
+import { DrizzleContext } from '@drizzle/react-plugin';
+import { Drizzle } from '@drizzle/store';
+import drizzleOptions from './drizzleOptions';
 import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
 import MainPage from './components/MainPage';
+
+import Loader from 'react-loader-spinner';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
-
 
 const drizzle = new Drizzle(drizzleOptions);
 
@@ -34,7 +35,6 @@ const App = () => {
           }
 
           return <MainPage drizzle={drizzle} drizzleState={drizzleState} />;
-
 
           // return (
           //   <Router>
