@@ -17,15 +17,11 @@ import {
 
 var tickets=50;
 var cashmoney=3500;
-const divstyle = {
-  
-  
- 
-};
+const colStyle = { "marginBottom":"5px"};
 
 function MainPage()  {
   const [cSelected, setCSelected] = useState([]);
-  const [rSelected, setRSelected] = useState(null);
+
 
   const onCheckboxBtnClick = (selected) => {
     const index = cSelected.indexOf(selected);
@@ -47,6 +43,7 @@ function MainPage()  {
                 <img src={user}/><p className={styles.playerlist}>Bot 4</p><br/>
                 <img src={user}/><p className={styles.playerlist}>Bot 5</p><br/>
               </div>
+              //pot din dreapta sus 
               <div className={styles.pot}> 
                 <p style={{"marginLeft" : "25%"}}> Your pot:</p>
                 <p className={styles.totalpot}>  {tickets} </p> 
@@ -62,7 +59,7 @@ function MainPage()  {
               <Container >
               <Row>
     <ButtonGroup>
-    <Col > <Button color="success" onClick={() => onCheckboxBtnClick(1)} active={cSelected.includes(1)}>01</Button></Col>
+    <Col style={colStyle} > <Button color="success" onClick={() => onCheckboxBtnClick(1)} active={cSelected.includes(1)}>01</Button></Col>
     <Col > <Button color="success" onClick={() => onCheckboxBtnClick(2)} active={cSelected.includes(2)}>02</Button></Col>
     <Col> <Button color="success" onClick={() => onCheckboxBtnClick(3)} active={cSelected.includes(3)}>03</Button></Col>
     <Col> <Button color="success" onClick={() => onCheckboxBtnClick(4)} active={cSelected.includes(4)}>04</Button></Col>
@@ -76,8 +73,8 @@ function MainPage()  {
   </Row>
   <Row>
   <ButtonGroup>
-    <Col> <Button color="success" onClick={() => onCheckboxBtnClick(11)} active={cSelected.includes(11)}>11</Button></Col>
-    <Col> <Button color="success" onClick={() => onCheckboxBtnClick(12)} active={cSelected.includes(12)}>12</Button></Col>
+    <Col  style={colStyle}> <Button color="success" onClick={() => onCheckboxBtnClick(11)} active={cSelected.includes(11)}>11</Button></Col>
+    <Col > <Button color="success" onClick={() => onCheckboxBtnClick(12)} active={cSelected.includes(12)}>12</Button></Col>
     <Col> <Button color="success" onClick={() => onCheckboxBtnClick(13)} active={cSelected.includes(13)}>13</Button></Col>
     <Col> <Button color="success" onClick={() => onCheckboxBtnClick(14)} active={cSelected.includes(14)}>14</Button></Col>
     <Col> <Button color="success" onClick={() => onCheckboxBtnClick(15)} active={cSelected.includes(15)}>15</Button></Col>
@@ -90,7 +87,7 @@ function MainPage()  {
   </Row>
   <Row>
   <ButtonGroup>
-    <Col> <Button color="success" onClick={() => onCheckboxBtnClick(21)} active={cSelected.includes(21)}>21</Button></Col>
+    <Col style={colStyle}> <Button color="success" onClick={() => onCheckboxBtnClick(21)} active={cSelected.includes(21)}>21</Button></Col>
     <Col> <Button color="success" onClick={() => onCheckboxBtnClick(22)} active={cSelected.includes(22)}>22</Button></Col>
     <Col> <Button color="success" onClick={() => onCheckboxBtnClick(23)} active={cSelected.includes(23)}>23</Button></Col>
     <Col> <Button color="success" onClick={() => onCheckboxBtnClick(24)} active={cSelected.includes(24)}>24</Button></Col>
@@ -104,7 +101,7 @@ function MainPage()  {
   </Row>
   <Row>
   <ButtonGroup>
-    <Col> <Button color="success" onClick={() => onCheckboxBtnClick(31)} active={cSelected.includes(31)}>31</Button></Col>
+    <Col style={colStyle}> <Button color="success" onClick={() => onCheckboxBtnClick(31)} active={cSelected.includes(31)}>31</Button></Col>
     <Col> <Button color="success" onClick={() => onCheckboxBtnClick(32)} active={cSelected.includes(32)}>32</Button></Col>
     <Col> <Button color="success" onClick={() => onCheckboxBtnClick(33)} active={cSelected.includes(33)}>33</Button></Col>
     <Col> <Button color="success" onClick={() => onCheckboxBtnClick(34)} active={cSelected.includes(34)}>34</Button></Col>
@@ -118,7 +115,7 @@ function MainPage()  {
   </Row>
   <Row>
   <ButtonGroup>
-    <Col> <Button color="success" onClick={() => onCheckboxBtnClick(41)} active={cSelected.includes(41)}>41</Button></Col>
+    <Col style={colStyle}> <Button color="success" onClick={() => onCheckboxBtnClick(41)} active={cSelected.includes(41)}>41</Button></Col>
     <Col> <Button color="success" onClick={() => onCheckboxBtnClick(42)} active={cSelected.includes(42)}>42</Button></Col>
     <Col> <Button color="success" onClick={() => onCheckboxBtnClick(43)} active={cSelected.includes(43)}>43</Button></Col>
     <Col> <Button color="success" onClick={() => onCheckboxBtnClick(44)} active={cSelected.includes(44)}>44</Button></Col>
@@ -134,6 +131,7 @@ function MainPage()  {
 
               </div>
               <p>Selected: {JSON.stringify(cSelected)}</p>
+              
               <div className={styles.betbuttons}>
                 <div >
                   <button className={styles.betbutton1}> WIN 2X <img src={ticket}></img> </button>
