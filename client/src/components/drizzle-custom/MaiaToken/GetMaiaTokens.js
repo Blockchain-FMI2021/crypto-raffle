@@ -3,26 +3,29 @@ import styles from "./GetMaiaTokens.module.css";
 import maiaTokenIcon from './../../imgs/maia-token.png';
 
 class GetMaiaTokens extends React.Component {
-  state = { dataKey: null };
+  state = { dataKey: null, transactionSuccess: false };
 
   componentDidMount() {
-    const { drizzle, drizzleState } = this.props;
+    const { drizzle, drizzleState, transactionSuccess } = this.props;
     const contract = drizzle.contracts.MaiaToken;
-    // let drizzle know we want to watch the `myString` method
     const dataKey = contract.methods.balanceOf.cacheCall(drizzleState.accounts[0], { from: drizzleState.accounts[0] });
-
-    // save the `dataKey` to local component state for later reference
     this.setState({ dataKey });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.transactionSuccess !== this.state.transactionSuccess) {
+      const dataKey = this.props.drizzle.contracts.MaiaToken.methods.balanceOf.cacheCall(nextProps.drizzleState.accounts[0], { from: nextProps.drizzleState.accounts[0] });
+      console.log(dataKey);
+      console.log(nextProps.drizzle.contracts.MaiaToken);
+      console.log(nextProps.drizzleState.contracts);
+      this.setState({dataKey: dataKey, transactionSuccess: nextProps.transactionSuccess });
+    }
+  }
+
   render() {
-    // get the contract state from drizzleState
     const { MaiaToken } = this.props.drizzleState.contracts;
-
-    // using the saved `dataKey`, get the variable we're interested in
     const myString = MaiaToken.balanceOf[this.state.dataKey];
-
-    // if it exists, then we display its value
+    console.log('~', this.state.dataKey);
     return <div className={styles.container}><span className={styles.money}>Wallet: {myString && myString.value}</span><img alt=""className={styles.ticketimg} src={maiaTokenIcon}/></div>;
   }
 }

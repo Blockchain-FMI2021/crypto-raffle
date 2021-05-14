@@ -58,6 +58,30 @@ class App extends React.Component {
                                                             alignItems: 'center'
                                                           },
                                                  },
+                                        loading: {
+                                                  style: {
+                                                            background: '#606060',
+                                                            color: 'white',
+                                                            textAlign: 'left',
+                                                            fontSize: '8px',
+                                                            display:'flex',
+                                                            flexFlow: 'column',
+                                                            flexWrap: 'no-wrap',
+                                                            alignItems: 'center'
+                                                          },
+                                                 },
+                                        error: {
+                                                  style: {
+                                                            background: 'red',
+                                                            color: 'white',
+                                                            textAlign: 'left',
+                                                            fontSize: '8px',
+                                                            display:'flex',
+                                                            flexFlow: 'column',
+                                                            flexWrap: 'no-wrap',
+                                                            alignItems: 'center'
+                                                          },
+                                                 },
                                       }}
         />
         <MainPage drizzle={this.props.drizzle} drizzleState={this.state.drizzleState} />

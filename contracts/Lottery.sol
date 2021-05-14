@@ -75,6 +75,7 @@ struct Win{
         extractionNo = 0;
         nrOfNumbers = 6;
         limit = 49;
+        ticketPrice = 100;
         maiaTokenContract = MaiaTokenPartner(maiaTokenAddress);
     }
 

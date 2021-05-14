@@ -6,7 +6,6 @@ class EntriesCurrentExtraction extends React.Component {
     componentDidMount() {
         const { drizzle, drizzleState } = this.props;
         const contract = drizzle.contracts.Lottery;
-        console.log(contract);
         contract.events.NewEntry()
                             .on('data', (event) => {
                                 const newNumberOfEntries = event.returnValues[0];
