@@ -20,7 +20,7 @@ class EnterLottery extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={this.setValue}>Enter Lottery</button>
+                <button className="btn btn-success" onClick={this.setValue}>Enter Lottery</button>
                 <div>{this.getTxStatus()}</div>
             </div>
         );

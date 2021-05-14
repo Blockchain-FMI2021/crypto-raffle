@@ -50,6 +50,7 @@ body, html {
   border-radius:16px!important;
   width:50%;
 }
+
 .buyinbutton
 {
   background-color: #4CAF50; /* Green */
@@ -70,23 +71,22 @@ body, html {
 }
 .pot
 {
- height: 75%;
-  margin-left:200px;
-  position: absolute;
-   top:0;
-   right:0;
-   width:18%;
+   position: absolute;
+   right:10px;
+   width:20%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+   align-items: center;
+   height:40%;
 }
-.betbuttons
+
+.totalEntries
 {
-  
-  height: 25px;
+  height: 50px;
   width:90%;
-  
-  display:flex;
   margin-left: auto;
-  margin-right: auto;
-  
+  margin-right: auto; 
 }
 .betbutton1
 {
@@ -126,6 +126,7 @@ body, html {
 
 .playerlist
 {
+  float: left;
   margin:5px;
   display:inline-block;
   color:white;
@@ -143,7 +144,7 @@ body, html {
   height: 300px;
   margin-left:20%;
   margin-right:20%;
-  
+  margin-top:10%;
 }
 .money
 {

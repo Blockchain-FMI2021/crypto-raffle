@@ -2,10 +2,14 @@ import React from 'react';
 import './App.css';
 import GetMaiaTokens from './components/drizzle-custom/MaiaToken/GetMaiaTokens';
 import EnterLottery from './components/drizzle-custom/Lottery/EnterLottery';
-import GetPlayers from './components/drizzle-custom/Lottery/GetPlayers';
+import ApproveLottery from './components/drizzle-custom/Lottery/ApproveLottery';
+import EntriesCurrentExtraction from './components/drizzle-custom/Lottery/EntriesCurrentExtraction';
 
 import MainPage from './components/visualComponents/MainPage';
 import Loader from 'react-loader-spinner';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import toast, { Toaster } from "react-hot-toast";
 
 
 class App extends React.Component {
@@ -41,10 +45,26 @@ class App extends React.Component {
       );
     return (
       <div className='App'>
-        <MainPage />
-        <GetMaiaTokens drizzle={this.props.drizzle} drizzleState={this.state.drizzleState} />
+        <Toaster position="bottom-right" toastOptions={{
+                                        success: {
+                                                  style: {
+                                                            background: '#198754',
+                                                            color: 'white',
+                                                            textAlign: 'left',
+                                                            fontSize: '8px',
+                                                            display:'flex',
+                                                            flexFlow: 'column',
+                                                            flexWrap: 'no-wrap',
+                                                            alignItems: 'center'
+                                                          },
+                                                 },
+                                      }}
+        />
+        <MainPage drizzle={this.props.drizzle} drizzleState={this.state.drizzleState} />
+        {/* <GetMaiaTokens drizzle={this.props.drizzle} drizzleState={this.state.drizzleState} />
         <EnterLottery drizzle={this.props.drizzle} drizzleState={this.state.drizzleState} />
-        <GetPlayers drizzle={this.props.drizzle} drizzleState={this.state.drizzleState} />
+        <ApproveLottery drizzle={this.props.drizzle} drizzleState={this.state.drizzleState} />
+        <EntriesCurrentExtraction drizzle={this.props.drizzle} drizzleState={this.state.drizzleState} /> */}
       </div>
     );
   }

@@ -1,4 +1,6 @@
 import React from "react";
+import styles from "./GetMaiaTokens.module.css";
+import maiaTokenIcon from './../../imgs/maia-token.png';
 
 class GetMaiaTokens extends React.Component {
   state = { dataKey: null };
@@ -21,7 +23,7 @@ class GetMaiaTokens extends React.Component {
     const myString = MaiaToken.balanceOf[this.state.dataKey];
 
     // if it exists, then we display its value
-    return <p>My stored string: {myString && myString.value}</p>;
+    return <div className={styles.container}><span className={styles.money}>Wallet: {myString && myString.value}</span><img alt=""className={styles.ticketimg} src={maiaTokenIcon}/></div>;
   }
 }
 

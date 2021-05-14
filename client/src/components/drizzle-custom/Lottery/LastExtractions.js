@@ -1,15 +1,16 @@
 import React from "react";
 
-class GetPlayers extends React.Component {
-    state = { numberOfEntries: null, dataKey: null };
+class LastExtractions extends React.Component {
+    state = { last5Extractions: null};
 
     componentDidMount() {
         const { drizzle, drizzleState } = this.props;
         const contract = drizzle.contracts.Lottery;
-        contract.events.NewEntry()
+        contract.events.Winners()
                             .on('data', (event) => {
+                                console.log(event);
                                 const newNumberOfEntries = event.returnValues[0];
-                                this.setState({numberOfEntries: newNumberOfEntries});
+                                // this.setState({numberOfEntries: newNumberOfEntries});
                             })
                             .on('changed', function(event){
                                 console.warn(event);
@@ -17,14 +18,13 @@ class GetPlayers extends React.Component {
                             .on('error', function(error){
                                 console.warn(error);
                             });
-        const dataKey = contract.methods.getPlayersNumber.cacheCall({ from: drizzleState.accounts[0] });
+        const dataKey = contract.methods.getLast5Winnings.cacheCall({ from: drizzleState.accounts[0] });
         this.setState({ dataKey });
     }
 
     render() {
         const { Lottery } = this.props.drizzleState.contracts;
-        const newNumberOfEntries = Lottery.getPlayersNumber[this.state.dataKey];
-        var entries = "loading...";
+        const last5Winnings = Lottery.getLast5Winnings[this.state.dataKey];
         if(this.state.numberOfEntries){
             entries = this.state.numberOfEntries;
         }else if(newNumberOfEntries){
@@ -34,4 +34,4 @@ class GetPlayers extends React.Component {
     }
 }
 
-export default GetPlayers;
+export default LastExtractions;
