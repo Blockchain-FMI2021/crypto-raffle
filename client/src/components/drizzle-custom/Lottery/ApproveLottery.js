@@ -11,6 +11,7 @@ class ApproveLottery extends React.Component {
     ticketPrice = "100";
 
     componentDidMount() {
+        this.setState({transactionStatus: "uni"});
         this.getApprovedLotteryValue();
     }
 
@@ -24,6 +25,7 @@ class ApproveLottery extends React.Component {
     getApprovedLotteryValue = () => {
         const { drizzle, drizzleState } = this.props;
         const contract = drizzle.contracts.Lottery;
+        debugger;
         const dataKey = contract.methods.getApprovedLotteryValue.cacheCall(drizzleState.accounts[0], { from: drizzleState.accounts[0] });
         this.setState({ dataKey });
     }
@@ -32,7 +34,6 @@ class ApproveLottery extends React.Component {
         const { transactions, transactionStack } = this.props.drizzleState;
         const txHash = transactionStack[this.state.stackId];
         if (!txHash) return null;
-        debugger;
         var status = transactions[txHash] && transactions[txHash].status;
         switch(status){
             case 'success':
@@ -40,7 +41,7 @@ class ApproveLottery extends React.Component {
                     toast.dismiss(this.state.loadingToastId);
                     this.setState({loadingToastId: null});
                 }
-                this.setState({transactionStatus: 'succes'});
+                this.setState({transactionStatus: 'success'});
                 this.getApprovedLotteryValue();
                 successToast(transactions, txHash);
                 this.props.callback();
@@ -49,28 +50,23 @@ class ApproveLottery extends React.Component {
                 if(!this.state.loadingToastId){
                     const toastId = loadingToast(transactions, txHash);
                     this.setState({loadingToastId: toastId});
-                } 
+                }
                 break;
             default:
                 break;
         }
-        if(status === 'success'){
-            if(!this.state.dataKey){
-                this.getApprovedLotteryValue();
-                successToast(transactions, txHash);
-                this.props.callback();
-            }
-        }else{
-            if(!this.state.dataKey){
-                failToast(transactions, txHash);
-            }
-        }
     };
+
+    componentWillReceiveProps(newProps) {
+        console.log(newProps);
+    }
 
     render() {
         const { Lottery } = this.props.drizzleState.contracts;
+        console.log(Lottery);
         const approvedValue = Lottery.getApprovedLotteryValue[this.state.dataKey];
         if(approvedValue && approvedValue.value >= this.props.drizzle.web3.utils.toBN(this.ticketPrice)){
+            console.log(approvedValue.value);
             this.props.callback();
         }
 

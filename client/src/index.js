@@ -18,6 +18,7 @@ const options = {
       url: 'ws://127.0.0.1:7545'
     }
   },
+  syncAlways:true,
   events: {
     Lottery: [
       "Winners"

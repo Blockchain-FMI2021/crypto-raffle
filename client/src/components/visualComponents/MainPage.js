@@ -18,7 +18,6 @@ function MainPage(props)  {
   const {drizzle, drizzleState} = props;
   const [selectedNumbers, setSelectedNumbers] = useState([]);
   const [hasApprovedMaiaTokens, setHasApprovedMaiaTokens] = useState(false);
-  const [transactionSucces, setTransactionSucces] = useState(false);
 
   const buyIn = () => {
     if(selectedNumbers.length !== 6) return;
@@ -39,8 +38,8 @@ function MainPage(props)  {
               </div>
 
               <div className={styles.pot}>
-                <GetMaiaTokens drizzle={drizzle} drizzleState={drizzleState} transactionSuccess={transactionSucces}/>
-                {hasApprovedMaiaTokens ? <EnterLottery drizzle={drizzle} drizzleState={drizzleState} callback={() => setTransactionSucces(true)} /> : <ApproveLottery drizzle={drizzle} drizzleState={drizzleState} callback={() => setHasApprovedMaiaTokens(true)}/> }
+                <GetMaiaTokens drizzle={drizzle} drizzleState={drizzleState}/>
+                {hasApprovedMaiaTokens ? <EnterLottery drizzle={drizzle} drizzleState={drizzleState} callback={() => setHasApprovedMaiaTokens(false)}/> : <ApproveLottery drizzle={drizzle} drizzleState={drizzleState} callback={() => setHasApprovedMaiaTokens(true)}/> }
               </div>
 
 
