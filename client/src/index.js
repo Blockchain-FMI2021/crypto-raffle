@@ -21,7 +21,8 @@ const options = {
   syncAlways:true,
   events: {
     Lottery: [
-      "Winners"
+      "Winners",
+      "NewEntry"
     ],
     MaiaToken: [
       "Transfer",
@@ -32,7 +33,8 @@ const options = {
   },
 };
 
-const drizzle = new Drizzle(options);
+const drizzleStore = generateStore(options);
+const drizzle = new Drizzle(options, drizzleStore);
 
 ReactDOM.render(<App drizzle={drizzle} />, document.getElementById('root'));
 

@@ -10,7 +10,7 @@ class LastExtractions extends React.Component {
                             .on('data', (event) => {
                                 console.log(event);
                                 const newNumberOfEntries = event.returnValues[0];
-                                // this.setState({numberOfEntries: newNumberOfEntries});
+                                //this.setState({numberOfEntries: newNumberOfEntries});
                             })
                             .on('changed', function(event){
                                 console.warn(event);
@@ -25,12 +25,14 @@ class LastExtractions extends React.Component {
     render() {
         const { Lottery } = this.props.drizzleState.contracts;
         const last5Winnings = Lottery.getLast5Winnings[this.state.dataKey];
-        if(this.state.numberOfEntries){
-            entries = this.state.numberOfEntries;
-        }else if(newNumberOfEntries){
-            entries = newNumberOfEntries.value;
-        }
-        return <p>Entries: {entries}</p>;
+        let entries = 'loading...';
+        // if(this.state.numberOfEntries){
+        //     entries = this.state.numberOfEntries;
+        // }else if(newNumberOfEntries){
+        //     entries = newNumberOfEntries.value;
+        // }
+        // return <p>Entries: {entries}</p>;
+        return <div><div>Last 5 winnings</div></div>;
     }
 }
 

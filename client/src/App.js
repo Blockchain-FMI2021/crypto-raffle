@@ -48,6 +48,7 @@ class App extends React.Component {
         <Toaster position="bottom-right" toastOptions={{
                                         success: {
                                                   style: {
+                                                            width: '400px',
                                                             background: '#198754',
                                                             color: 'white',
                                                             textAlign: 'left',
@@ -60,6 +61,7 @@ class App extends React.Component {
                                                  },
                                         loading: {
                                                   style: {
+                                                            width: '400px',
                                                             background: '#606060',
                                                             color: 'white',
                                                             textAlign: 'left',
@@ -72,6 +74,7 @@ class App extends React.Component {
                                                  },
                                         error: {
                                                   style: {
+                                                            width: '400px',
                                                             background: 'red',
                                                             color: 'white',
                                                             textAlign: 'left',

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Button, Container, ButtonGroup, Row, Col } from 'reactstrap';
 
 import _ from 'lodash';
-import keccak256 from 'keccak256';
 
 const colStyle = { 'marginBottom': '7px' };
 

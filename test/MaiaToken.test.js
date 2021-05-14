@@ -50,7 +50,7 @@ contract('MaiaToken', accounts => {
         it('mints new 1 MaiaToken', async function() {
             await this.token.mint(accounts[0], 10);
             const balance = await this.token.balanceOf(accounts[0]);
-            const newSupply = '1000000000000000000000000010';
+            const newSupply = '10000000010';
             assert.equal(balance.eq(web3.utils.toBN(newSupply)), true, "Total supply of the token is not correct!");
         })
     })

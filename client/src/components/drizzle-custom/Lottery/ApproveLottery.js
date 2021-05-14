@@ -7,11 +7,10 @@ const failToast = (transactions, txHash) => toast.fail(<div><div>Transaction sta
 const loadingToast = (transactions, txHash) => toast.loading(<div><div>Transaction status: `{transactions[txHash].status}`</div><div>`{txHash}`</div></div>);
 
 class ApproveLottery extends React.Component {
-    state = { stackId: null, dataKey: null, transactionStatus: null, loadingToastId: null };
+    state = { stackId: null, dataKey: null, transactionStatus: "pending", loadingToastId: null };
     ticketPrice = "100";
 
     componentDidMount() {
-        this.setState({transactionStatus: "uni"});
         this.getApprovedLotteryValue();
     }
 
@@ -25,8 +24,7 @@ class ApproveLottery extends React.Component {
     getApprovedLotteryValue = () => {
         const { drizzle, drizzleState } = this.props;
         const contract = drizzle.contracts.Lottery;
-        debugger;
-        const dataKey = contract.methods.getApprovedLotteryValue.cacheCall(drizzleState.accounts[0], { from: drizzleState.accounts[0] });
+        const dataKey = contract.methods.getApprovedLotteryValue.call(drizzleState.accounts[0], { from: drizzleState.accounts[0] });
         this.setState({ dataKey });
     }
 
@@ -57,16 +55,10 @@ class ApproveLottery extends React.Component {
         }
     };
 
-    componentWillReceiveProps(newProps) {
-        console.log(newProps);
-    }
-
     render() {
         const { Lottery } = this.props.drizzleState.contracts;
-        console.log(Lottery);
         const approvedValue = Lottery.getApprovedLotteryValue[this.state.dataKey];
         if(approvedValue && approvedValue.value >= this.props.drizzle.web3.utils.toBN(this.ticketPrice)){
-            console.log(approvedValue.value);
             this.props.callback();
         }
 

@@ -102,7 +102,7 @@ struct Win{
         numberOfEntriesPerExtraction[extractionNo] = numberOfEntriesPerExtraction[extractionNo] + 1;
         lotteryEntries[extractionNo][entryHash].push(msg.sender);
         maiaTokenContract.transferFrom(msg.sender, address(this), ticketPrice);
-        emit NewEntry(numberOfEntriesPerExtraction[extractionNo]);
+        emit NewEntry(numberOfEntriesPerExtraction[extractionNo], getBalanceInMaiaToken());
     }
 
     function random(uint256 seed) private view returns (uint256) {
@@ -188,17 +188,17 @@ struct Win{
         return str;
     }
 
-    function pickWinner() public restricted {
+    function pickWinner() public payable{
         // for testing purposes
-        // uint8[] memory numbers = new uint8[](nrOfNumbers);
-        // for (uint8 index = 0; index < 6; index++) {
-        //     numbers[index] = index + 1;
-        // }
+        uint8[] memory numbers = new uint8[](nrOfNumbers);
+        for (uint8 index = 0; index < 6; index++) {
+            numbers[index] = index + 1;
+        }
         uint256 totalPrize =  maiaTokenContract.balanceOf(address(this));
         if(totalPrize == 0){
             emit NoEntries();
         }else{
-            uint8[] memory numbers = getWinnerNumbers();
+            //uint8[] memory numbers = getWinnerNumbers();
             string memory numbersConcatenated;
             for (uint8 i = 0; i < nrOfNumbers; i++) {
                 numbersConcatenated = appendUintToString(
@@ -217,13 +217,11 @@ struct Win{
                 uint256 amountWinByEveryParticipant =
                     maiaTokenContract.balanceOf(address(this)) / numberOfWinners;
                 for (uint8 i = 0; i < numberOfWinners; i++) {
-                    lotteryEntries[extractionNo][winningHash][i].transfer(
-                        amountWinByEveryParticipant
-                    );
+                    maiaTokenContract.transfer(lotteryEntries[extractionNo][winningHash][i], amountWinByEveryParticipant);
                 }
             }
             emit Winners(winPerExtraction[extractionNo]);
-            extractionNo += 1;
+            extractionNo = extractionNo + 1;
         }
     }
 
@@ -236,8 +234,12 @@ struct Win{
         return numberOfEntriesPerExtraction[extractionNo];
     }
 
-    function getBalance() public view restricted returns (uint256) {
+    function getBalance() public view returns (uint256) {
         return address(this).balance;
+    }
+
+    function getBalanceInMaiaToken() public view returns (uint256) {
+        return maiaTokenContract.balanceOf(address(this));
     }
 
     function getLast5Winnings() public view returns (Win[] memory){
@@ -255,7 +257,7 @@ struct Win{
 
     event Winners(Win);
 
-    event NewEntry(uint256);
+    event NewEntry(uint256,uint256);
 }
 
 
@@ -263,7 +265,7 @@ contract MaiaTokenPartner{
 
     function balanceOf(address account) external view returns (uint256);
 
-//    function transfer(address recipient, uint256 amount) external returns (bool);
+    function transfer(address recipient, uint256 amount) external returns (bool);
 
     function allowance(address owner, address spender) external view returns (uint256);
 
